@@ -9,5 +9,5 @@ kubectl port-forward svc/hello-world-service 8000:8000
 
 Two endpoints:
 
-http://localhost:8000 - Simple home page
-http://localhost:8000/random - Returns random number
+- http://localhost:8000 - Simple home page
+- http://localhost:8000/random - Returns random number
