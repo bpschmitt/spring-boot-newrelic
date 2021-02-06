@@ -4,7 +4,7 @@ Simple Spring Boot app which is instrumented with the New Relic Java agent.  Ini
 
 ```
 kubectl apply -f k8s/deployment.yaml
-kubectl port-forward svc/hello-world-service 8000:8000
+kubectl port-forward svc/hello-world-service 8000
 ```
 
 Two endpoints:
