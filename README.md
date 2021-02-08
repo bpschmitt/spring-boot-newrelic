@@ -1,6 +1,6 @@
 # spring-boot-newrelic
 
-Simple Spring Boot app which is instrumented with the New Relic Java agent.  Init container is used to download the latest version of the agent and is mounted to the app container via the `/agent-dir` volume.
+Simple Spring Boot app which is instrumented with the New Relic Java agent.  An `init` container is used to download the latest version of the agent and mount it to the app container in the `/agent-dir` volume.
 
 ```
 kubectl create secret generic nrlicensekey --from-literal=nrlicensekey=<YOUR NEW RELIC LICENSE KEY>
