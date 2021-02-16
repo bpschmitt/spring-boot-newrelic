@@ -24,6 +24,15 @@ spec:
       labels:
         app: hello-world-java
     spec:
+      initContainers:
+      - name: newrelic-java-sidecar
+        image: alpine:latest
+        imagePullPolicy: IfNotPresent
+        command: ["wget"]
+        args: ["-O","/agent-dir/newrelic-agent.jar","http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-agent.jar"]
+        volumeMounts:
+        - name: agentdir
+          mountPath: "/agent-dir"
       containers:
       - name: hello-world-java
         image: bpschmitt/brad-demo-app:0.1
@@ -47,15 +56,8 @@ spec:
               key: nrlicensekey
         - name: NEW_RELIC_APP_NAME
           value: "hello-world-java"
-      initContainers:
-      - name: newrelic-java-sidecar
-        image: alpine:latest
-        imagePullPolicy: IfNotPresent
-        command: ["wget"]
-        args: ["-O","/agent-dir/newrelic-agent.jar","http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-agent.jar"]
-        volumeMounts:
-        - name: agentdir
-          mountPath: "/agent-dir"
+        - name: NEW_RELIC_LOG_FILE_NAME
+          value: "STDOUT"
       volumes:
       - name: agentdir
         emptyDir: {}
