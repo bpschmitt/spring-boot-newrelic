@@ -51,11 +51,8 @@ spec:
       - name: newrelic-java-sidecar
         image: alpine:latest
         imagePullPolicy: IfNotPresent
-        command:
-        - wget
-        - "-O"
-        - "/agent-dir/newrelic-agent.jar"
-        - "http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-agent.jar"
+        command: ["wget"]
+        args: ["-O","/agent-dir/newrelic-agent.jar","http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-agent.jar"]
         volumeMounts:
         - name: agentdir
           mountPath: "/agent-dir"
