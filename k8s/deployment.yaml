@@ -24,30 +24,16 @@ spec:
       labels:
         app: hello-world-java
     spec:
-      initContainers:
-      - name: newrelic-java-sidecar
-        image: alpine:latest
-        imagePullPolicy: IfNotPresent
-        command: ["wget"]
-        args: ["-O","/agent-dir/newrelic-agent.jar","http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-agent.jar"]
-        volumeMounts:
-        - name: agentdir
-          mountPath: "/agent-dir"
       containers:
       - name: hello-world-java
-        image: bpschmitt/brad-demo-app:0.1
-        imagePullPolicy: IfNotPresent
+        image: bschmitt769/spring-boot-newrelic:with-agent
+        imagePullPolicy: Always
         resources:
           limits:
             memory: "512M"
             cpu: "250m"
         ports:
         - containerPort: 8080
-        volumeMounts:
-        - name: agentdir
-          mountPath: "/agent-dir"
-        command: ["java"]
-        args: ["-javaagent:/agent-dir/newrelic-agent.jar", "-jar", "brad-demo-app.jar"]
         env:
         - name: NEW_RELIC_LICENSE_KEY
           valueFrom:
@@ -58,6 +44,3 @@ spec:
           value: "hello-world-java"
         - name: NEW_RELIC_LOG_FILE_NAME
           value: "STDOUT"
-      volumes:
-      - name: agentdir
-        emptyDir: {}
